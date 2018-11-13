@@ -8,6 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "USERS")
+@NamedQueries(
+		@NamedQuery(name = "Users.getUsersByFilter", query = "SELECT user FROM Users user " +
+				"WHERE LOWER(CONCAT(user.lastName, ' ', user.firstName)) LIKE LOWER(CONCAT('%', :filter, '%')) " +
+				"OR LOWER(CONCAT(user.firstName, ' ', user.lastName)) LIKE LOWER(CONCAT('%', :filter, '%'))"))
 public class Users implements Serializable {
 	@Id
 	@GeneratedValue
@@ -16,9 +20,9 @@ public class Users implements Serializable {
 	private String firstName;
 	@Column(name = "LAST_NAME")
 	private String lastName;
-	@Column(name = "EMAIL" , nullable = false, unique = true)
+	@Column(name = "EMAIL", nullable = false, unique = true)
 	private String email;
-	@Column(name = "TEL_NUMBER" , nullable = false, unique = true)
+	@Column(name = "TEL_NUMBER", nullable = false, unique = true)
 	private String telNumber;
 	@Column(name = "GENDER")
 	private String gender;
@@ -40,6 +44,7 @@ public class Users implements Serializable {
 
 	public void setUserAuth(UserAuth userAuth) {
 		this.userAuth = userAuth;
+		this.userAuth.setUser(this);
 	}
 
 	public Users() {
@@ -54,6 +59,19 @@ public class Users implements Serializable {
 		this.birthday = birthday;
 		this.info = info;
 	}
+
+	/* for main realization
+	public Users(String firstName, String lastName, String email, String telNumber, String gender, Date birthday, String info, UserAuth userAuth) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.telNumber = telNumber;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.info = info;
+		this.userAuth = userAuth;
+		this.userAuth.setUser(this);
+	}*/
 
 	public int getId() {
 		return id;
@@ -136,7 +154,7 @@ public class Users implements Serializable {
 				", email='" + email + '\'' +
 				", telNumber='" + telNumber + '\'' +
 				", gender='" + gender + '\'' +
-				", birthday='" +  birthday + '\'' +
+				", birthday='" + birthday + '\'' +
 				", info='" + info + '\'' +
 				", userAuth=" + userAuth +
 				'}';

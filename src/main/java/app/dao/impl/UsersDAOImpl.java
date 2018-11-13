@@ -13,11 +13,19 @@ import java.util.List;
 public class UsersDAOImpl extends GenericDAOImpl<Users> implements UsersDAO {
 
 	@Override
-	public List<Users> getAllUsersByFullName(String name, String surname){
+	public List<Users> getAllUsersByFullName(String name, String surname) {
 		Query<Users> theQuery = getCurrentSession().createQuery("from Users where firstName=:userName and lastName=:userSurname", Users.class);
-		theQuery.setParameter("userName", name).setParameter( "userSurname",  surname);
+		theQuery.setParameter("userName", name).setParameter("userSurname", surname);
 		List<Users> allUsersByFullName = theQuery.getResultList();
 		return allUsersByFullName;
+	}
+
+	@Override
+	public List<Users> getUsersByFilter(String filter) {
+		List<Users> list = getCurrentSession().getNamedQuery("Users.getUsersByFilter")
+				.setParameter("filter", filter)
+				.getResultList();
+		return list;
 	}
 
 	/*@Override
@@ -29,9 +37,9 @@ public class UsersDAOImpl extends GenericDAOImpl<Users> implements UsersDAO {
 	}*/
 
 	@Override
-	public void deleteUsersByFullName(String name, String surname){
+	public void deleteUsersByFullName(String name, String surname) {
 		Query<Users> theQuery = getCurrentSession().createQuery("delete from Users where firstName=:userName and lastName=:userSurname");
-		theQuery.setParameter("userName", name).setParameter( "userSurname",  surname);
+		theQuery.setParameter("userName", name).setParameter("userSurname", surname);
 		theQuery.executeUpdate();
 	}
 

@@ -3,7 +3,7 @@ DELETE FROM USERS;
 
 INSERT USERS (ID,FIRST_NAME,LAST_NAME,EMAIL,TEL_NUMBER,GENDER,BIRTHDAY,INFO)
 VALUES
-(1,),
+(1,"ivan","ByTen","ivan@mail.ru","+789156892","male",null),
 (2,),
 (3,),
 (4,),

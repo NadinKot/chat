@@ -24,35 +24,9 @@ public class Main {
 		//Users user = userService.findUserById(168);
 		/*userService.deleteUser(user);*/
 
-		Users user = new Users("name3","surname3","3user@mail1.ru","3","female",null,"something about user");
-		UserAuth auth = new UserAuth("User3","User3");
-		auth.setUser(user);
-		user.setUserAuth(auth);
-		userService.saveUser(user);
-
-
-
-		/*List<Users> allUsers = usersDAO.findAll();
-		System.out.println(allUsers);*/
-
-		/*Users userById = usersDAO.findById(162);
-		System.out.println(userById);*/
-
-
-
-
-
-		/*String jdbcUrl="jdbc:oracle:thin:@10.233.57.186:1521:oracle12";
-		String user = "NKOTLIAR_CHAT";
-		String password = "NKOTLIAR_CHAT";
-		try{
-			System.out.println("connection to "+jdbcUrl);
-			Connection conn = DriverManager.getConnection(jdbcUrl, user, password);
-			System.out.println("Succsess");
-		}
-		catch (Exception exc){
-			exc.printStackTrace();
-		}*/
+		//UserAuth auth = new UserAuth("User3","User3");
+		//Users user = new Users("name3","surname3","3user@mail1.ru","3","female",null,"something about user", auth);
+		//userService.saveUser(user);
 
 
 	}

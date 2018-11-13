@@ -11,5 +11,7 @@ public interface UsersDAO extends GenericDAO<Users> {
 
 	List<Users> getAllUsersByFullName(String name, String surname);
 
+	List<Users> getUsersByFilter(String filter);
+
 	//List<Users> getUsersById(int id);
 }

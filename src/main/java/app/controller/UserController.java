@@ -1,11 +1,14 @@
 package app.controller;
 
+import app.DTO.AnswerDTO;
 import app.model.Users;
 import app.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -26,13 +29,22 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/list-users", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/list-users", method = RequestMethod.GET)
 	public @ResponseBody List<Users> getAllUsers() {
-		return userService.findAllUsers();
-	} //
+		List<Users> allUsers = userService.findAllUsers();
 
-	@GetMapping(value = "/searchUser")
-	public String searchUser(){
-		return "404";
+		return allUsers;
+	} //*/
+	@RequestMapping(value = "/list-users", method = RequestMethod.GET)
+	public @ResponseBody Model getAllUsers(Model model) {
+		List<Users> allUsers = userService.findAllUsers();
+		model.addAttribute("users", allUsers);
+		return model;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/findUsers", method = RequestMethod.GET)
+	public AnswerDTO findUsers(@RequestParam String filter){
+		return new AnswerDTO(userService.findUsersByFilter(filter));
 	}
 }

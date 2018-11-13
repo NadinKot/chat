@@ -7,19 +7,16 @@
 --%>
 <!doctype html>
 <html lang="en">
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>List Users</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
-    <script	src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
 
 </head>
 <body>
@@ -29,16 +26,19 @@
         <h3>All registered users</h3>
     </div>
     <div id="container">
-        <input class="form-control" id="myInput" type="text" placeholder="Search the Person by name, or by surname, or by E-mail">
+        <div>
+            <input class="form-control" id="dynamicFilter" type="text"
+                   placeholder="Search the Person by name, or by surname, or by E-mail">
+        </div>
         <div id="content">
-            <table class="table table-striped table-bordered table-sm">
+            <table id="userTable" class="table table-striped table-bordered table-sm">
                 <thead class="thead-light">
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Phone Number</th>
-                    </tr>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                </tr>
                 </thead>
                 <c:forEach var="tempUser" items="${users}">
                     <tr>
@@ -61,16 +61,13 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
+<script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
+
+<script src="<c:url value="/assets/js/sendAjax.js" />"></script>
+<script src="<c:url value="/assets/js/dynamicFilter.js" />"></script>
 </body>
 </html>
